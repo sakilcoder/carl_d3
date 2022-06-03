@@ -10,6 +10,10 @@ var projection = d3.geo.albersUsa()
 var path = d3.geo.path()               // path generator that will convert GeoJSON to SVG paths
     .projection(projection);  // tell path generator to use albersUsa projection
 
+// Define linear scale for output
+var color = d3.scale.linear()
+    .range(["rgb(180,201,194)","rgb(244, 208, 63)"]);
+
 //Create SVG element and append map to the SVG
 var svg = d3.select("body")
     .append("svg")
@@ -63,14 +67,14 @@ d3.csv("stateshighlight.csv", function (data) {
             .style("fill", function (d) {
 
                 // Get data value
-                var value = d.properties.name;
+                var value = d.properties.highlight;
 
                 if (value) {
                     //If value exists…
                     return color(value);
                 } else {
                     //If value is undefined…
-                    return "rgb(213, 216, 220)";
+                    return "rgb(180,201,194)";
                 }
 
             })
